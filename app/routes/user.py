@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from app.schemas.user_schema import UserSchema
-from app.database.supabase_utils import supabase
+from schemas.user_schema import UserSchema
+from database.supabase_utils import supabase
 
 user_router = APIRouter()
 
@@ -21,4 +21,12 @@ def user(uuid: str):
 
 @user_router.post("/user")
 def new_user(data: UserSchema):
-    return {"message":"New User Route"}
+    try:
+        existing_user = supabase.table("users").select('uuid').eq('uuid', data.uuid).execute()
+        if existing_user.data:
+            raise HTTPException(status_code=400, detail="User already exists")
+        else:
+            supabase.table("users").insert([data.dict()]).execute()
+        return {"user": data.dict()}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error creating user: {str(e)}")
