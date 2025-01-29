@@ -1,6 +1,6 @@
-from fastapi import APIRouter
-from schemas.user_schema import UserSchema
-from database.supabase_utils import supabase
+from fastapi import APIRouter, HTTPException
+from app.schemas.user_schema import UserSchema
+from app.database.supabase_utils import supabase
 
 user_router = APIRouter()
 
