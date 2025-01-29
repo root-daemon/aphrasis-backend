@@ -1,6 +1,6 @@
 from fastapi import APIRouter,HTTPException
-from database.supabase_utils import supabase
-from schemas.user_schema import LevelProgressUpdateSchema
+from app.database.supabase_utils import supabase
+from app.schemas.user_schema import LevelProgressUpdateSchema
 
 level_router = APIRouter()
 

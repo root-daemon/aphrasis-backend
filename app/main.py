@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from routes.transcribe import transcribe_router
-from routes.user import user_router
-from routes.levels import level_router
-from routes.history import history_router
+from app.routes.transcribe import transcribe_router
+from app.routes.user import user_router
+from app.routes.levels import level_router
+from app.routes.history import history_router
 
 app = FastAPI()
 

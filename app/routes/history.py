@@ -1,5 +1,5 @@
-from fastapi import APIRouter,HTTPException
-from database.supabase_utils import supabase
+from fastapi import APIRouter, HTTPException
+from app.database.supabase_utils import supabase
 
 history_router = APIRouter()
 
