@@ -22,11 +22,11 @@ def user(uuid: str):
 @user_router.post("/user")
 def new_user(data: UserSchema):
     try:
-        existing_user = supabase.table("users").select('uuid').eq('uuid', data.uuid).execute()
+        existing_user = supabase.table("users").select("name","streak","level_completed").eq('uuid', data.uuid).execute()
         if existing_user.data:
-            raise HTTPException(status_code=400, detail="User already exists")
+            return existing_user.data[0]
         else:
             supabase.table("users").insert([data.model_dump()]).execute()
-        return {"user": data.model_dump()}
+            return {"user": data.model_dump()}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error creating user: {str(e)}")
