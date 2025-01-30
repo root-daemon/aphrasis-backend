@@ -37,8 +37,8 @@ def level_data(uuid:str):
             current_progress = user_progress[level["level_id"]]
             is_locked = not previous_level_completed and level["level_id"] != 1
             
-            # A level is considered completed if accuracy is >= 80%
-            previous_level_completed = current_progress["accuracy"] >= 80
+            # A level is considered completed if accuracy is >= 50%
+            previous_level_completed = current_progress["accuracy"] >= 50
             
             levels_with_progress.append({
                 "level_id": level["level_id"],
