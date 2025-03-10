@@ -9,7 +9,8 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://aphrasis-blush.vercel.app/"],
+    allow_origins=["http://localhost:3000", "https://aphrasis-blush.vercel.app/", 'https://cron-job.org',
+      'https://cron-job.org/cron-job-scheduler-online/'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
