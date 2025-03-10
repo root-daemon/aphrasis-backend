@@ -2,8 +2,8 @@ import os
 import torch
 from transformers import WhisperProcessor, WhisperForConditionalGeneration
 
-MODEL_NAME = "openai/whisper-small"  # You can change to whisper-base or whisper-large
-MODEL_PATH = "app/models/whisper_model"  # Directory to save the model
+MODEL_NAME = "openai/whisper-small"  
+MODEL_PATH = "app/models/whisper_model"
 
 def load_or_save_model():
     """Loads the Whisper model if saved; otherwise, downloads and saves it."""
