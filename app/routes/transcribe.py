@@ -1,6 +1,10 @@
-from fastapi import APIRouter,File, UploadFile
-from app.utils.audio_utils import convert_wav, get_file_extension,transcribe_audio
+from fastapi import APIRouter, File, UploadFile, Body
+from pydantic import BaseModel
+from app.utils.audio_utils import convert_wav, get_file_extension, transcribe_audio
 from app.utils.file_utils import download_audio_file
+
+class URLRequest(BaseModel):
+    url: str
 
 transcribe_router = APIRouter()
 
@@ -11,8 +15,8 @@ async def transcribe(file: UploadFile = File(...)):
     return {"transcription": transcription}
 
 @transcribe_router.post('/url')
-async def transcribe_url(url: str):
-    audio_file_path = download_audio_file(url)
+async def transcribe_url(request: URLRequest):
+    audio_file_path = download_audio_file(request.url)
     with open(audio_file_path, 'rb') as audio_file:
         audio_data = audio_file.read()
     transcription = transcribe_audio(audio_data, audio_file_path)
