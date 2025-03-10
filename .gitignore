@@ -65,3 +65,4 @@ log/
 .docker/
 docker-compose.override.yml 
 *.safetensors
+*.sh
