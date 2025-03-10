@@ -22,19 +22,16 @@ def user(uuid: str):
 @user_router.post("/user")
 def new_user(data: UserSchema):
     try:
-        # Check if user already exists
         existing_user = supabase.table("users").select("name","streak","level_completed").eq('uuid', data.uuid).execute()
         if existing_user.data:
             return existing_user.data[0]
-        
-        # If user doesn't exist, create new user
+
+
         user_response = supabase.table("users").insert([data.model_dump()]).execute()
         
-        # Get all available levels
         levels_response = supabase.table("levels").select("level_id").order("level_id").execute()
         
         if levels_response.data:
-            # Initialize progress entries for all levels
             progress_entries = [
                 {
                     "uuid": data.uuid,
@@ -45,7 +42,6 @@ def new_user(data: UserSchema):
                 for level in levels_response.data
             ]
             
-            # Insert progress entries
             supabase.table("user_progress").insert(progress_entries).execute()
         
         return {"user": data.model_dump()}
