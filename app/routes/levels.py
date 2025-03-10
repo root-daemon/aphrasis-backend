@@ -8,18 +8,14 @@ level_router = APIRouter()
 @level_router.get("/levels_data/{uuid}")
 def level_data(uuid:str):
     try:
-        # Get all levels
         level_response = supabase.table("levels").select("level_id","title","sentence").order("level_id").execute()
         if not level_response.data:
             raise HTTPException(status_code=404, detail="Practice data not found")
 
-        # Get user's progress
         progress_response = supabase.table("user_progress").select("level_id","accuracy","attempts").eq("uuid",uuid).execute()
         
-        # Create a dictionary of user progress with default values
         user_progress = {}
         for level in level_response.data:
-            # Default progress for each level
             user_progress[level["level_id"]] = {"accuracy": 0, "attempts": 0}
         
         # Update with actual progress where it exists
