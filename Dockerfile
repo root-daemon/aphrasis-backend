@@ -14,6 +14,7 @@ RUN apt-get update \
         python3-dev \
         libsndfile1 \
         libsndfile1-dev \
+        ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
