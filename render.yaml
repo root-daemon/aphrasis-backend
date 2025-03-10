@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: aphrasis-backend
+    env: docker
+    region: oregon
+    plan: starter
+    branch: main
+    dockerfilePath: ./Dockerfile
+    numInstances: 1
+    healthCheckPath: /
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: PYTHONPATH
+        value: /app
+      - key: SUPABASE_URL
+        fromEnv: SUPABASE_URL
+      - key: SUPABASE_KEY
+        fromEnv: SUPABASE_KEY
+    autoDeploy: true # Enable auto-deployments on push to the specified branch
+    domains:
+      - api.aphrasis.com # Optional: Add your custom domain if you have one
+
+# You can add more services like databases if needed
+# Example:
+# databases:
+#   - name: aphrasis-db
+#     plan: starter
+#     type: postgres
