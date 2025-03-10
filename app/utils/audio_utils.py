@@ -4,7 +4,9 @@ import io
 import soundfile as sf
 import torchaudio
 import torch
-from models.model_loader import processor, model
+from app.models.model_loader import load_or_save_model
+
+processor, model = load_or_save_model()
 
 SAMPLE_RATE = 16000
 VALID_AUDIO_FORMATS = ["wav", "mp3", "flac", "ogg", "m4a"]
